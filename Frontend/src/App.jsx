@@ -1,21 +1,22 @@
 import React, { Suspense } from "react";
 import Navbar from "./Components/Navbar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Loading from "./Components/common/Loading";
 
-const Home = React.lazy(() => import("./pages/Home"));
 const About = React.lazy(() => import("./pages/About"));
 const Contact = React.lazy(() => import("./pages/Contact"));
 
 function App() {
   return (
-    <main>
+    <BrowserRouter>
       <Navbar />
-      <Router>
+      <main className="h-[calc(100vh-4rem)] bg-blue-50">
         <Routes>
           <Route
             path="/"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <Home />
               </Suspense>
             }
@@ -23,7 +24,7 @@ function App() {
           <Route
             path="/about"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <About />
               </Suspense>
             }
@@ -31,14 +32,14 @@ function App() {
           <Route
             path="/contact"
             element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<Loading />}>
                 <Contact />
               </Suspense>
             }
           />
         </Routes>
-      </Router>
-    </main>
+      </main>
+    </BrowserRouter>
   );
 }
 
